@@ -4,7 +4,6 @@ import (
 	"os"
 
 	"github.com/projectdiscovery/goflags"
-	"github.com/projectdiscovery/gologger"
 )
 
 // Options contains the configuration options for tuning
@@ -114,37 +113,37 @@ func ParseOptions() *Options {
 
 	_ = flagSet.Parse()
 
-	// Check if stdin pipe was given
-	options.Stdin = hasStdin()
-
-	// Read the inputs and configure the logging
-	options.configureOutput()
-
-	// Show the user the banner
-	showBanner()
-
-	if options.Version {
-		gologger.Info().Msgf("Current Version: %s\n", Version)
-		os.Exit(0)
-	}
-
-	// Show network configuration and exit if the user requested it
-	if options.InterfacesList {
-		err := showNetworkInterfaces()
-		if err != nil {
-			gologger.Error().Msgf("Could not get network interfaces: %s\n", err)
-		}
-		os.Exit(0)
-	}
-
-	// Validate the options passed by the user and if any
-	// invalid options have been used, exit.
-	err := options.validateOptions()
-	if err != nil {
-		gologger.Fatal().Msgf("Program exiting: %s\n", err)
-	}
-
-	showNetworkCapabilities(options)
+	//// Check if stdin pipe was given
+	//options.Stdin = hasStdin()
+	//
+	//// Read the inputs and configure the logging
+	//options.configureOutput()
+	//
+	//// Show the user the banner
+	//showBanner()
+	//
+	//if options.Version {
+	//	gologger.Info().Msgf("Current Version: %s\n", Version)
+	//	os.Exit(0)
+	//}
+	//
+	//// Show network configuration and exit if the user requested it
+	//if options.InterfacesList {
+	//	err := showNetworkInterfaces()
+	//	if err != nil {
+	//		gologger.Error().Msgf("Could not get network interfaces: %s\n", err)
+	//	}
+	//	os.Exit(0)
+	//}
+	//
+	//// Validate the options passed by the user and if any
+	//// invalid options have been used, exit.
+	//err := options.validateOptions()
+	//if err != nil {
+	//	gologger.Fatal().Msgf("Program exiting: %s\n", err)
+	//}
+	//
+	//showNetworkCapabilities(options)
 
 	return options
 }

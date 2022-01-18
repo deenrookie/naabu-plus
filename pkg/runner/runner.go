@@ -10,13 +10,13 @@ import (
 	"sync"
 	"time"
 
+	"github.com/deenrookie/naabu-plus/pkg/scan"
 	"github.com/projectdiscovery/blackrock"
 	"github.com/projectdiscovery/clistats"
 	"github.com/projectdiscovery/dnsx/libs/dnsx"
 	"github.com/projectdiscovery/gologger"
 	"github.com/projectdiscovery/ipranger"
 	"github.com/projectdiscovery/mapcidr"
-	"github.com/deenrookie/naabu-plus/pkg/scan"
 	"github.com/remeh/sizedwaitgroup"
 	"go.uber.org/ratelimit"
 )
@@ -96,28 +96,12 @@ func NewRunner(options *Options) (*Runner, error) {
 }
 
 // RunEnumeration runs the ports enumeration flow on the targets specified
-func (r *Runner) RunEnumeration() error {
+func (r *Runner) RunEnumeration() (err error, rets []JSONResult) {
 	defer r.Close()
 
-	if isRoot() && r.options.ScanType == SynScan {
-		// Set values if those were specified via cli
-		if err := r.SetSourceIPAndInterface(); err != nil {
-			// Otherwise try to obtain them automatically
-			err = r.scanner.TuneSource(ExternalTargetForTune)
-			if err != nil {
-				return err
-			}
-		}
-		err := r.scanner.SetupHandlers()
-		if err != nil {
-			return err
-		}
-		r.BackgroundWorkers()
-	}
-
-	err := r.Load()
+	err = r.Load()
 	if err != nil {
-		return err
+		return
 	}
 
 	// Scan workers
@@ -191,12 +175,13 @@ func (r *Runner) RunEnumeration() error {
 		r.ConnectVerification()
 	}
 
-	r.handleOutput()
+	err, rets = r.HandleResult()
+	//r.handleOutput()
 
 	// handle nmap
-	r.handleNmap()
+	// r.handleNmap()
 
-	return nil
+	return
 }
 
 // Close runner instance
