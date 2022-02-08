@@ -1,7 +1,6 @@
-package naabu
+package naabu_plus
 
 import (
-	"fmt"
 	"github.com/deenrookie/naabu-plus/pkg/runner"
 	"github.com/projectdiscovery/gologger"
 )
@@ -22,7 +21,7 @@ func PortScan(host string, threads int, ports string) (err error, rets []runner.
 	return
 }
 
-func main() {
-	_, data := PortScan("dns.d33n.cn", 10, "top-1000")
-	fmt.Println(data)
-}
+//func main() {
+//	_, data := PortScan("dns.d33n.cn", 10, "top-1000")
+//	fmt.Println(data)
+//}
