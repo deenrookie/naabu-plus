@@ -5,7 +5,7 @@ import (
 	"github.com/projectdiscovery/gologger"
 )
 
-func PortScan(host string, threads int, ports string) (err error, rets []runner.JSONResult) {
+func PortScan(host string, threads int, ports string) (rets []runner.JSONResult, err error) {
 	options := runner.ParseOptions()
 
 	options.Host = host
