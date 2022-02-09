@@ -55,63 +55,63 @@ type OnResultCallback func(string, string, []int)
 // ParseOptions parses the command line flags provided by a user
 func ParseOptions() *Options {
 	options := &Options{}
-	flagSet := goflags.NewFlagSet()
-	flagSet.SetDescription(`Naabu is a port scanning tool written in Go that allows you to enumerate open ports for hosts in a fast and reliable manner.`)
-
-	createGroup(flagSet, "input", "Input",
-		flagSet.StringVar(&options.Host, "host", "", "Host to scan ports for"),
-		flagSet.StringVarP(&options.HostsFile, "naabu-l", "naabu-list", "", "File containing list of hosts to scan ports"),
-		flagSet.StringVarP(&options.ExcludeIps, "eh", "exclude-hosts", "", "Specifies a comma-separated list of targets to be excluded from the scan (ip, cidr)"),
-		flagSet.StringVarP(&options.ExcludeIpsFile, "ef", "exclude-file", "", "Specifies a newline-delimited file with targets to be excluded from the scan (ip, cidr)"),
-	)
-
-	createGroup(flagSet, "port", "Port",
-		flagSet.StringVarP(&options.Ports, "naabu-p", "naabu-port", "", "Ports to scan (80, 80,443, 100-200"),
-		flagSet.StringVarP(&options.TopPorts, "tp", "top-ports", "", "Top Ports to scan (default top 100)"),
-		flagSet.StringVarP(&options.ExcludePorts, "ep", "exclude-ports", "", "Ports to exclude from scan"),
-		flagSet.StringVarP(&options.PortsFile, "pf", "ports-file", "", "File containing ports to scan for"),
-		flagSet.BoolVarP(&options.ExcludeCDN, "ec", "exclude-cdn", false, "Skip full port scans for CDNs (only checks for 80,443)"),
-	)
-
-	createGroup(flagSet, "rate-limit", "Rate-limit",
-		flagSet.IntVar(&options.Threads, "naabu-c", 25, "General internal worker threads"),
-		flagSet.IntVar(&options.Rate, "rate", DefaultRateSynScan, "Rate of port scan probe request"),
-	)
-
-	createGroup(flagSet, "output", "Output",
-		flagSet.StringVarP(&options.Output, "naabu-output", "naabu-o", "", "File to write output to (optional)"),
-		flagSet.BoolVar(&options.JSON, "naabu-json", false, "Write output in JSON lines Format"),
-	)
-
-	createGroup(flagSet, "config", "Configuration",
-		flagSet.BoolVar(&options.ScanAllIPS, "scan-all-ips", false, "Scan all the ips"),
-		flagSet.StringVarP(&options.ScanType, "naabu-s", "scan-type", SynScan, "Port scan type (SYN/CONNECT)"),
-		flagSet.StringVar(&options.SourceIP, "source-ip", "", "Source Ip"),
-		flagSet.BoolVarP(&options.InterfacesList, "naabu-il", "interface-list", false, "List available interfaces and public ip"),
-		flagSet.StringVarP(&options.Interface, "naabu-i", "interface", "", "Network Interface to use for port scan"),
-		flagSet.BoolVar(&options.Nmap, "nmap", false, "Invoke nmap scan on targets (nmap must be installed) - Deprecated"),
-		flagSet.StringVar(&options.NmapCLI, "nmap-cli", "", "nmap command to run on found results (example: -nmap-cli 'nmap -sV')"),
-		flagSet.StringVar(&options.Resolvers, "naabu-r", "", "Custom resolvers to use to resolve DNS names (comma separated or from file)"),
-	)
-
-	createGroup(flagSet, "optimization", "Optimization",
-		flagSet.IntVar(&options.Retries, "naabu-retries", DefaultRetriesSynScan, "Number of retries for the port scan probe"),
-		flagSet.IntVar(&options.Timeout, "naabu-timeout", DefaultPortTimeoutSynScan, "Millisecond to wait before timing out"),
-		flagSet.IntVar(&options.WarmUpTime, "warm-up-time", 2, "Time in seconds between scan phases"),
-		flagSet.BoolVar(&options.Ping, "naabu-ping", false, "Use ping probes for verification of host"),
-		flagSet.BoolVar(&options.Verify, "naabu-verify", false, "Validate the ports again with TCP verification"),
-	)
-
-	createGroup(flagSet, "debug", "Debug",
-		flagSet.BoolVar(&options.Debug, "naabu-debug", false, "Enable debugging information"),
-		flagSet.BoolVar(&options.Verbose, "naabu-v", false, "Show Verbose output"),
-		flagSet.BoolVarP(&options.NoColor, "naabu-nc", "no-color", false, "Don't Use colors in output"),
-		flagSet.BoolVar(&options.Silent, "naabu-silent", false, "Show found ports only in output"),
-		flagSet.BoolVar(&options.Version, "naabu-version", false, "Show version of naabu"),
-		flagSet.BoolVar(&options.EnableProgressBar, "naabu-stats", false, "Display stats of the running scan"),
-	)
-
-	_ = flagSet.Parse()
+	//flagSet := goflags.NewFlagSet()
+	//flagSet.SetDescription(`Naabu is a port scanning tool written in Go that allows you to enumerate open ports for hosts in a fast and reliable manner.`)
+	//
+	//createGroup(flagSet, "input", "Input",
+	//	flagSet.StringVar(&options.Host, "host", "", "Host to scan ports for"),
+	//	flagSet.StringVarP(&options.HostsFile, "naabu-l", "naabu-list", "", "File containing list of hosts to scan ports"),
+	//	flagSet.StringVarP(&options.ExcludeIps, "eh", "exclude-hosts", "", "Specifies a comma-separated list of targets to be excluded from the scan (ip, cidr)"),
+	//	flagSet.StringVarP(&options.ExcludeIpsFile, "ef", "exclude-file", "", "Specifies a newline-delimited file with targets to be excluded from the scan (ip, cidr)"),
+	//)
+	//
+	//createGroup(flagSet, "port", "Port",
+	//	flagSet.StringVarP(&options.Ports, "naabu-p", "naabu-port", "", "Ports to scan (80, 80,443, 100-200"),
+	//	flagSet.StringVarP(&options.TopPorts, "tp", "top-ports", "", "Top Ports to scan (default top 100)"),
+	//	flagSet.StringVarP(&options.ExcludePorts, "ep", "exclude-ports", "", "Ports to exclude from scan"),
+	//	flagSet.StringVarP(&options.PortsFile, "pf", "ports-file", "", "File containing ports to scan for"),
+	//	flagSet.BoolVarP(&options.ExcludeCDN, "ec", "exclude-cdn", false, "Skip full port scans for CDNs (only checks for 80,443)"),
+	//)
+	//
+	//createGroup(flagSet, "rate-limit", "Rate-limit",
+	//	flagSet.IntVar(&options.Threads, "naabu-c", 25, "General internal worker threads"),
+	//	flagSet.IntVar(&options.Rate, "rate", DefaultRateSynScan, "Rate of port scan probe request"),
+	//)
+	//
+	//createGroup(flagSet, "output", "Output",
+	//	flagSet.StringVarP(&options.Output, "naabu-output", "naabu-o", "", "File to write output to (optional)"),
+	//	flagSet.BoolVar(&options.JSON, "naabu-json", false, "Write output in JSON lines Format"),
+	//)
+	//
+	//createGroup(flagSet, "config", "Configuration",
+	//	flagSet.BoolVar(&options.ScanAllIPS, "scan-all-ips", false, "Scan all the ips"),
+	//	flagSet.StringVarP(&options.ScanType, "naabu-s", "scan-type", SynScan, "Port scan type (SYN/CONNECT)"),
+	//	flagSet.StringVar(&options.SourceIP, "source-ip", "", "Source Ip"),
+	//	flagSet.BoolVarP(&options.InterfacesList, "naabu-il", "interface-list", false, "List available interfaces and public ip"),
+	//	flagSet.StringVarP(&options.Interface, "naabu-i", "interface", "", "Network Interface to use for port scan"),
+	//	flagSet.BoolVar(&options.Nmap, "nmap", false, "Invoke nmap scan on targets (nmap must be installed) - Deprecated"),
+	//	flagSet.StringVar(&options.NmapCLI, "nmap-cli", "", "nmap command to run on found results (example: -nmap-cli 'nmap -sV')"),
+	//	flagSet.StringVar(&options.Resolvers, "naabu-r", "", "Custom resolvers to use to resolve DNS names (comma separated or from file)"),
+	//)
+	//
+	//createGroup(flagSet, "optimization", "Optimization",
+	//	flagSet.IntVar(&options.Retries, "naabu-retries", DefaultRetriesSynScan, "Number of retries for the port scan probe"),
+	//	flagSet.IntVar(&options.Timeout, "naabu-timeout", DefaultPortTimeoutSynScan, "Millisecond to wait before timing out"),
+	//	flagSet.IntVar(&options.WarmUpTime, "warm-up-time", 2, "Time in seconds between scan phases"),
+	//	flagSet.BoolVar(&options.Ping, "naabu-ping", false, "Use ping probes for verification of host"),
+	//	flagSet.BoolVar(&options.Verify, "naabu-verify", false, "Validate the ports again with TCP verification"),
+	//)
+	//
+	//createGroup(flagSet, "debug", "Debug",
+	//	flagSet.BoolVar(&options.Debug, "naabu-debug", false, "Enable debugging information"),
+	//	flagSet.BoolVar(&options.Verbose, "naabu-v", false, "Show Verbose output"),
+	//	flagSet.BoolVarP(&options.NoColor, "naabu-nc", "no-color", false, "Don't Use colors in output"),
+	//	flagSet.BoolVar(&options.Silent, "naabu-silent", false, "Show found ports only in output"),
+	//	flagSet.BoolVar(&options.Version, "naabu-version", false, "Show version of naabu"),
+	//	flagSet.BoolVar(&options.EnableProgressBar, "naabu-stats", false, "Display stats of the running scan"),
+	//)
+	//
+	//_ = flagSet.Parse()
 
 	//// Check if stdin pipe was given
 	//options.Stdin = hasStdin()

@@ -8,6 +8,12 @@ import (
 func PortScan(host string, threads int, ports string) (rets []runner.JSONResult, err error) {
 	options := runner.ParseOptions()
 
+	options.Retries = 3
+	options.Rate = 1000
+	options.Timeout = 1000
+	options.WarmUpTime = 2
+	options.ScanType = "s"
+
 	options.Host = host
 	options.Threads = threads
 	options.TopPorts = ports
@@ -22,6 +28,6 @@ func PortScan(host string, threads int, ports string) (rets []runner.JSONResult,
 }
 
 //func main() {
-//	_, data := PortScan("dns.d33n.cn", 10, "top-1000")
+//	data, _ := PortScan("dns.d33n.cn", 10, "top-1000")
 //	fmt.Println(data)
 //}
