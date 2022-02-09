@@ -85,7 +85,7 @@ func ParseOptions() *Options {
 
 	createGroup(flagSet, "config", "Configuration",
 		flagSet.BoolVar(&options.ScanAllIPS, "scan-all-ips", false, "Scan all the ips"),
-		flagSet.StringVarP(&options.ScanType, "s", "scan-type", SynScan, "Port scan type (SYN/CONNECT)"),
+		flagSet.StringVarP(&options.ScanType, "naabu-s", "scan-type", SynScan, "Port scan type (SYN/CONNECT)"),
 		flagSet.StringVar(&options.SourceIP, "source-ip", "", "Source Ip"),
 		flagSet.BoolVarP(&options.InterfacesList, "il", "interface-list", false, "List available interfaces and public ip"),
 		flagSet.StringVarP(&options.Interface, "i", "interface", "", "Network Interface to use for port scan"),
