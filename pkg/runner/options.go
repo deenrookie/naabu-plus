@@ -1,11 +1,5 @@
 package runner
 
-import (
-	"os"
-
-	"github.com/projectdiscovery/goflags"
-)
-
 // Options contains the configuration options for tuning
 // the port enumeration process.
 // nolint:maligned // just an option structure
@@ -146,23 +140,4 @@ func ParseOptions() *Options {
 	//showNetworkCapabilities(options)
 
 	return options
-}
-
-func hasStdin() bool {
-	stat, err := os.Stdin.Stat()
-	if err != nil {
-		return false
-	}
-
-	isPipedFromChrDev := (stat.Mode() & os.ModeCharDevice) == 0
-	isPipedFromFIFO := (stat.Mode() & os.ModeNamedPipe) != 0
-
-	return isPipedFromChrDev || isPipedFromFIFO
-}
-
-func createGroup(flagSet *goflags.FlagSet, groupName, description string, flags ...*goflags.FlagData) {
-	flagSet.SetGroup(groupName, description)
-	for _, currentFlag := range flags {
-		currentFlag.Group(groupName)
-	}
 }
