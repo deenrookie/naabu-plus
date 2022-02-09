@@ -60,13 +60,13 @@ func ParseOptions() *Options {
 
 	createGroup(flagSet, "input", "Input",
 		flagSet.StringVar(&options.Host, "host", "", "Host to scan ports for"),
-		flagSet.StringVarP(&options.HostsFile, "l", "list", "", "File containing list of hosts to scan ports"),
+		flagSet.StringVarP(&options.HostsFile, "naabu-l", "list", "", "File containing list of hosts to scan ports"),
 		flagSet.StringVarP(&options.ExcludeIps, "eh", "exclude-hosts", "", "Specifies a comma-separated list of targets to be excluded from the scan (ip, cidr)"),
 		flagSet.StringVarP(&options.ExcludeIpsFile, "ef", "exclude-file", "", "Specifies a newline-delimited file with targets to be excluded from the scan (ip, cidr)"),
 	)
 
 	createGroup(flagSet, "port", "Port",
-		flagSet.StringVarP(&options.Ports, "p", "port", "", "Ports to scan (80, 80,443, 100-200"),
+		flagSet.StringVarP(&options.Ports, "naabu-p", "port", "", "Ports to scan (80, 80,443, 100-200"),
 		flagSet.StringVarP(&options.TopPorts, "tp", "top-ports", "", "Top Ports to scan (default top 100)"),
 		flagSet.StringVarP(&options.ExcludePorts, "ep", "exclude-ports", "", "Ports to exclude from scan"),
 		flagSet.StringVarP(&options.PortsFile, "pf", "ports-file", "", "File containing ports to scan for"),
@@ -74,13 +74,13 @@ func ParseOptions() *Options {
 	)
 
 	createGroup(flagSet, "rate-limit", "Rate-limit",
-		flagSet.IntVar(&options.Threads, "c", 25, "General internal worker threads"),
+		flagSet.IntVar(&options.Threads, "naabu-c", 25, "General internal worker threads"),
 		flagSet.IntVar(&options.Rate, "rate", DefaultRateSynScan, "Rate of port scan probe request"),
 	)
 
 	createGroup(flagSet, "output", "Output",
-		flagSet.StringVarP(&options.Output, "output", "o", "", "File to write output to (optional)"),
-		flagSet.BoolVar(&options.JSON, "json", false, "Write output in JSON lines Format"),
+		flagSet.StringVarP(&options.Output, "naabu-output", "o", "", "File to write output to (optional)"),
+		flagSet.BoolVar(&options.JSON, "naabu-json", false, "Write output in JSON lines Format"),
 	)
 
 	createGroup(flagSet, "config", "Configuration",
@@ -88,10 +88,10 @@ func ParseOptions() *Options {
 		flagSet.StringVarP(&options.ScanType, "naabu-s", "scan-type", SynScan, "Port scan type (SYN/CONNECT)"),
 		flagSet.StringVar(&options.SourceIP, "source-ip", "", "Source Ip"),
 		flagSet.BoolVarP(&options.InterfacesList, "il", "interface-list", false, "List available interfaces and public ip"),
-		flagSet.StringVarP(&options.Interface, "i", "interface", "", "Network Interface to use for port scan"),
+		flagSet.StringVarP(&options.Interface, "naabu-i", "interface", "", "Network Interface to use for port scan"),
 		flagSet.BoolVar(&options.Nmap, "nmap", false, "Invoke nmap scan on targets (nmap must be installed) - Deprecated"),
 		flagSet.StringVar(&options.NmapCLI, "nmap-cli", "", "nmap command to run on found results (example: -nmap-cli 'nmap -sV')"),
-		flagSet.StringVar(&options.Resolvers, "r", "", "Custom resolvers to use to resolve DNS names (comma separated or from file)"),
+		flagSet.StringVar(&options.Resolvers, "naabu-r", "", "Custom resolvers to use to resolve DNS names (comma separated or from file)"),
 	)
 
 	createGroup(flagSet, "optimization", "Optimization",
@@ -103,11 +103,11 @@ func ParseOptions() *Options {
 	)
 
 	createGroup(flagSet, "debug", "Debug",
-		flagSet.BoolVar(&options.Debug, "debug", false, "Enable debugging information"),
-		flagSet.BoolVar(&options.Verbose, "v", false, "Show Verbose output"),
+		flagSet.BoolVar(&options.Debug, "naabu-debug", false, "Enable debugging information"),
+		flagSet.BoolVar(&options.Verbose, "naabu-v", false, "Show Verbose output"),
 		flagSet.BoolVarP(&options.NoColor, "nc", "no-color", false, "Don't Use colors in output"),
 		flagSet.BoolVar(&options.Silent, "silent", false, "Show found ports only in output"),
-		flagSet.BoolVar(&options.Version, "version", false, "Show version of naabu"),
+		flagSet.BoolVar(&options.Version, "naabu-version", false, "Show version of naabu"),
 		flagSet.BoolVar(&options.EnableProgressBar, "stats", false, "Display stats of the running scan"),
 	)
 
