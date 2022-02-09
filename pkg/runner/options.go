@@ -79,7 +79,7 @@ func ParseOptions() *Options {
 	)
 
 	createGroup(flagSet, "output", "Output",
-		flagSet.StringVarP(&options.Output, "naabu-output", "o", "", "File to write output to (optional)"),
+		flagSet.StringVarP(&options.Output, "naabu-output", "naabu-o", "", "File to write output to (optional)"),
 		flagSet.BoolVar(&options.JSON, "naabu-json", false, "Write output in JSON lines Format"),
 	)
 
