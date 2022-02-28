@@ -17,6 +17,7 @@ func PortScan(host string, threads int, ports string) (rets []runner.JSONResult,
 	options.Host = host
 	options.Threads = threads
 	options.TopPorts = ports
+	options.Verify = true
 
 	naabuRunner, err := runner.NewRunner(options)
 	if err != nil {
